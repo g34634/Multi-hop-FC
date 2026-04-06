@@ -10,10 +10,6 @@ from src.data.gold_mapper import run_gold_mapping
 from src.retrieval.chroma_builder import upsert_chunks
 from src.retrieval.retriever import batch_retrieve
 
-from src.evaluation.metrics import evaluate_retrieval, save_eval_results
-
-from pathlib import Path
-
 def prepare_dirs(config: Config) -> None:
     ensure_dir(config.raw_dir)
     ensure_dir(config.wiki_cache_dir)
@@ -29,47 +25,35 @@ def main():
     config = Config()
     prepare_dirs(config)
 
-    print("[1/7] Loading HoVer local json...")
+    print("[1/6] Loading HoVer local json...")
     hover_rows = load_hover_dataset_from_local_json(config.hover_train_json_path)
     print(f"  - hover rows: {len(hover_rows)}")
 
-    print("[2/7] Sampling HoVer claims...")
+    print("[2/6] Sampling HoVer claims...")
     sampled_claims, required_titles = run_hover_sampling(hover_rows, config)
     print(f"  - sampled claims: {len(sampled_claims)}")
     print(f"  - required wiki titles: {len(required_titles)}")
 
-    print("[3/7] Loading/FETCHING Wikipedia documents with local cache...")
+    print("[3/6] Loading/FETCHING Wikipedia documents with local cache...")
     matched_docs, missing_titles = run_wiki_matching(required_titles, config)
     print(f"  - matched docs: {len(matched_docs)}")
     print(f"  - missing titles: {len(missing_titles)}")
     if missing_titles:
         print("  - missing title examples:", missing_titles[:5])
 
-    print("[4/7] Building sentence chunks...")
+    print("[4/6] Building sentence chunks...")
     chunks = run_chunking(matched_docs, config)
     print(f"  - total sentence chunks: {len(chunks)}")
 
-    print("[5/7] Building gold mappings...")
+    print("[5/6] Building gold mappings...")
     enriched_claims = run_gold_mapping(sampled_claims, config)
 
-    print("[6/7] Upserting into Chroma...")
+    print("[6/6] Upserting into Chroma...")
     upsert_chunks(chunks, config)
-
-    print("[7/7] Running retrieval evaluation...")
-    all_eval_results = {}
 
     for top_k in config.top_k_list:
         retrieval_rows = batch_retrieve(enriched_claims, top_k=top_k, config=config)
-        eval_result = evaluate_retrieval(retrieval_rows, top_k=top_k)
-        all_eval_results[f"top_{top_k}"] = eval_result
-
-        print(
-            f"  - top_k={top_k} | "
-            f"avg_hit={eval_result[f'avg_hit@{top_k}']:.4f} | "
-            f"avg_recall={eval_result[f'avg_recall@{top_k}']:.4f}"
-        )
-
-    save_eval_results(all_eval_results, config)
+        print(retrieval_rows)
     print("Done.")
 
 

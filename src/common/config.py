@@ -68,4 +68,4 @@ class Config:
     # -------------------------
     # Retrieval
     # -------------------------
-    top_k_list: list[int] = field(default_factory=lambda: [1, 3, 5, 10])
+    # top_k_list: list[int] = field(default_factory=lambda: [1, 3, 5, 10])
