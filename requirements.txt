@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 datasets>=3.0.0
 chromadb>=0.5.0
 sentence-transformers>=3.0.0
@@ -5,3 +6,12 @@ torch>=2.0.0
 requests>=2.31.0
 tqdm>=4.66.0
 python-dotenv>=1.0.0
+=======
+datasets>=3.0.0
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+torch>=2.0.0
+requests>=2.31.0
+tqdm>=4.66.0
+python-dotenv>=1.0.0
+>>>>>>> 99af02fa0e4fdf9041c1610f74babaf79eb08f47
