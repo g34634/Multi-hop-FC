@@ -35,17 +35,26 @@ class ProgramFactChecker:
         self._build_executor(retriever)
 
     def _build_executor(self, retriever: Optional[BaseRetriever]) -> None:
+        effective_top_k = max(self.cfg.top_k_list)
+
         question = QuestionModule(
-            llm=self._executor_llm, retriever=retriever,
-            top_k=self.cfg.top_k, closed_book=self.cfg.closed_book,
+            llm=self._executor_llm,
+            retriever=retriever,
+            top_k=effective_top_k,
+            closed_book=self.cfg.closed_book,
         )
         verify = VerifyModule(
-            llm=self._executor_llm, retriever=retriever,
-            top_k=self.cfg.top_k, closed_book=self.cfg.closed_book,
+            llm=self._executor_llm,
+            retriever=retriever,
+            top_k=effective_top_k,
+            closed_book=self.cfg.closed_book,
         )
         self.executor = ProgramExecutor(
-            cfg=self.cfg, question=question, verify=verify,
-            predict=self.predict, error_logger=self.error_logger,
+            cfg=self.cfg,
+            question=question,
+            verify=verify,
+            predict=self.predict,
+            error_logger=self.error_logger,
         )
 
     def set_retriever(self, retriever: BaseRetriever) -> None:

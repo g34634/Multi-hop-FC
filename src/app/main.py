@@ -1,15 +1,20 @@
-"""
-사용 예시.
+from src.common.config import Config as AppConfig
+from src.retrieval import ChromaRetriever
+from src.common import ProgramFCConfig
 
-Retriever 교체가 핵심 — LangChain 덕분에 한 줄로 가능:
-  - FAISS:          vectorstore.as_retriever(search_kwargs={"k": 10})
-  - Chroma:         Chroma(...).as_retriever(...)
-  - BM25:           BM25Retriever.from_documents(docs, k=10)
-  - Elasticsearch:  ElasticSearchBM25Retriever(...)
-"""
-from src.common.config import ProgramFCConfig
-from src.reasoning.orchestrator import ProgramFactChecker
-# from src.retrieval.retriever import PlaceholderRetriever # 실제 검색기로 교체
+def format_retrieved_docs_for_prompt(retrieved_docs: list[dict]) -> str:
+    chunks = []
+
+    for i, doc in enumerate(retrieved_docs, start=1):
+        title = doc["metadata"].get("title", "N/A")
+        chunk_id = doc["metadata"].get("chunk_id", doc["id"])
+        text = doc["text"]
+
+        chunks.append(
+            f"[Doc {i}] title={title} | chunk_id={chunk_id}\n{text}"
+        )
+
+    return "\n\n".join(chunks)
 
 
 def main() -> None:
@@ -25,33 +30,25 @@ def main() -> None:
         closed_book=False,
     )
 
-    # -------------------------------------------------------
-    # 여기만 바꾸면 retriever 교체 완료:
-    #
-    #   from langchain_community.vectorstores import FAISS
-    #   from langchain_openai import OpenAIEmbeddings
-    #   vectorstore = FAISS.load_local("my_index", OpenAIEmbeddings())
-    #   retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
-    # -------------------------------------------------------
-    retriever = PlaceholderRetriever()
+    app_cfg = AppConfig()
 
-    checker = ProgramFactChecker(cfg, retriever=retriever)
+    retriever = ChromaRetriever(
+        config=app_cfg,
+        top_k=cfg.top_k,
+    )
 
-    claim = "Both James Cameron and the director of the film Interstellar were born in Canada."
-    result = checker.fact_check(claim)
+    claim = "The Godfather was directed by Christopher Nolan."
 
-    print("=" * 80)
-    print("CLAIM:", result.claim)
-    print("FINAL LABEL:", result.final_label)
-    print("CANDIDATE LABELS:", result.candidate_labels)
-    print("=" * 80)
+    retrieved_docs = retriever.retrieve_for_claim(claim)
+    context_text = format_retrieved_docs_for_prompt(retrieved_docs)
 
-    for trace in result.traces:
-        print(f"\n[Candidate {trace.candidate_index}] success={trace.success} final={trace.final_label}")
-        print(trace.program_text)
-        for step in trace.steps:
-            print(f"  - step#{step['index']} {step['function']} -> {step['variable']} = {step['output']}")
+    print("\n[Retrieved Docs]")
+    for i, doc in enumerate(retrieved_docs, start=1):
+        print(f"\n--- Doc {i} ---")
+        print("id:", doc["id"])
+        print("distance:", doc["distance"])
+        print("metadata:", doc["metadata"])
+        print("text:", doc["text"])
 
-
-if __name__ == "__main__":
-    main()
+    print("\n[Context for Prompt]")
+    print(context_text)

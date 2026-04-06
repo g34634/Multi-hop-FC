@@ -13,8 +13,7 @@ from langchain_core.language_models import BaseLLM
 from langchain_core.retrievers import BaseRetriever
 
 from src.common.errors import ProgramFCError
-from src.retrieval.retriever import serialize_documents
-
+from src.common.documents import serialize_documents
 
 class VerifyModule:
     ANSWER_MARKER = "The answer is:"
