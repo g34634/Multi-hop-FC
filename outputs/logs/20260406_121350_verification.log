@@ -1,0 +1,9 @@
+--- Verification Execution Log ---
+Step: answer_1 = Question("Who directed the film Interstellar?") 
+=> answer_1: Christopher Nolan
+Step: fact_1 = Verify("James Cameron was born in Canada.") 
+=> fact_1: True
+Step: fact_2 = Verify("{answer_1} was born in Canada.") 
+=> fact_2: False
+Step: label = Predict(fact_1 and fact_2) 
+=> label: REFUTES
