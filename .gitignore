@@ -1,3 +1,5 @@
 .venv/
 __pycache__/
 *.pyc
+requirements.txt
+src/common/config.py
