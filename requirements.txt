@@ -1,17 +1,18 @@
-<<<<<<< HEAD
+# ------ LangChain (LLM 추상화 + Retriever 인터페이스) ------
+langchain-core==1.2.25
+langchain-openai==1.1.10
+langchain-community==0.4.1
+
+# ------ Executor LLM 로컬 실행 ------
+transformers==5.5.0
+torch==2.11.0
+torchvision==0.26.0
+accelerate==1.2.0
+
 datasets>=3.0.0
 chromadb>=0.5.0
 sentence-transformers>=3.0.0
-torch>=2.0.0
+
 requests>=2.31.0
 tqdm>=4.66.0
 python-dotenv>=1.0.0
-=======
-datasets>=3.0.0
-chromadb>=0.5.0
-sentence-transformers>=3.0.0
-torch>=2.0.0
-requests>=2.31.0
-tqdm>=4.66.0
-python-dotenv>=1.0.0
->>>>>>> 99af02fa0e4fdf9041c1610f74babaf79eb08f47
