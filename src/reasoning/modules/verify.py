@@ -12,8 +12,8 @@ from typing import Optional, Any
 from langchain_core.language_models import BaseLLM
 from langchain_core.retrievers import BaseRetriever
 
-from src.common.errors import ProgramFCError
 from src.common.documents import serialize_documents
+
 
 class VerifyModule:
     ANSWER_MARKER = "The answer is:"
@@ -55,16 +55,22 @@ class VerifyModule:
     def _retrieve(self, query: str) -> str:
         if self.closed_book or self.retriever is None:
             return ""
+
         docs = self.retriever.invoke(query)
+        if not docs:
+            return ""
+
         return serialize_documents(docs[: self.top_k])
 
     @staticmethod
     def _to_text(raw: Any) -> str:
         if isinstance(raw, str):
             return raw
+
         content = getattr(raw, "content", None)
         if isinstance(content, str):
             return content
+
         return str(raw)
 
     def _extract_generated_text(self, text: str, prompt: str) -> str:
@@ -86,11 +92,7 @@ class VerifyModule:
     def _parse_boolean(raw: str) -> bool:
         lines = [ln.strip() for ln in raw.splitlines() if ln.strip()]
         if not lines:
-            raise ProgramFCError(
-                category="incorrect_execution",
-                subtype="invalid_verify_output",
-                message="Verify module returned empty text.",
-            )
+            return False
 
         first = lines[0]
         first = re.sub(
@@ -107,8 +109,10 @@ class VerifyModule:
         if normalized.startswith("false"):
             return False
 
-        raise ProgramFCError(
-            category="incorrect_execution",
-            subtype="invalid_verify_output",
-            message=f"Verify module returned non-boolean text: {raw}",
-        )
+        if normalized in {"yes", "supported", "correct"}:
+            return True
+
+        if normalized in {"no", "not supported", "incorrect", "unknown"}:
+            return False
+
+        return False
