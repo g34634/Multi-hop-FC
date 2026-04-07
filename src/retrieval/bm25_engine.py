@@ -3,7 +3,9 @@ import re
 from pathlib import Path
 from rank_bm25 import BM25Okapi
 from nltk.stem.porter import PorterStemmer
-from src.common.config import Config
+# Avoid importing Config at module import time to prevent environment-variable
+# checks (e.g. HF_TOKEN) from running during simple unit tests. Type hints
+# may reference Config elsewhere but we avoid the top-level import.
 
 # Standard English stopwords
 STOPWORDS = {
@@ -23,8 +25,22 @@ STOPWORDS = {
 }
 
 class BM25Engine:
-    def __init__(self, config: Config):
+    def __init__(self, config):
         self.config = config
+        # Provide safe defaults for optional BM25 config fields in case
+        # the provided Config object does not define them.
+        if not hasattr(self.config, "bm25_k1"):
+            setattr(self.config, "bm25_k1", 1.5)
+        if not hasattr(self.config, "bm25_b"):
+            setattr(self.config, "bm25_b", 0.75)
+        if not hasattr(self.config, "bm25_index_path"):
+            # default index path inside data directory
+            try:
+                default_path = Path(self.config.data_dir) / "processed" / "bm25_index.pkl"
+            except Exception:
+                default_path = Path("bm25_index.pkl")
+            setattr(self.config, "bm25_index_path", default_path)
+
         self.bm25 = None
         self.chunks = []  # To store the original chunk objects (for metadata and text)
         self.stemmer = PorterStemmer()
