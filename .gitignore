@@ -1,1 +1,8 @@
 .DS_Store
+.env
+.venv
+.data
+pycache/
+*.pyc
+*.pyo
+*.pyd
