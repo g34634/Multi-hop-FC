@@ -1,0 +1,178 @@
+[
+  {
+    "uid": "80ca66bd-2535-4ec3-8421-ad9dcbebf06d",
+    "claim": "Skagen Painter Peder Severin Krøyer favored naturalism along with Theodor Esbern Philipsen and Kristian Zahrtmann.",
+    "label": "SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Kristian Zahrtmann",
+        0
+      ],
+      [
+        "Kristian Zahrtmann",
+        1
+      ],
+      [
+        "Peder Severin Krøyer",
+        1
+      ]
+    ]
+  },
+  {
+    "uid": "1632da2c-c6ca-4d12-9545-6469f24ea3a2",
+    "claim": "Red, White & Crüe and Mike Tyson both died.",
+    "label": "NOT_SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Red, White &amp; Crüe",
+        2
+      ],
+      [
+        "Mike Tyson",
+        2
+      ]
+    ]
+  },
+  {
+    "uid": "e1e9cda2-49a1-4117-a5a7-974563c58676",
+    "claim": "Red, White & Crüe and Mike Tyson both fight.",
+    "label": "SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Red, White &amp; Crüe",
+        2
+      ],
+      [
+        "Mike Tyson",
+        2
+      ]
+    ]
+  },
+  {
+    "uid": "ef4c721f-0a92-4739-9e74-b5c7dba711a4",
+    "claim": "WWE Super Tuesday took place at an arena that currently goes by the name TD Garden.",
+    "label": "SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "WWE Super Tuesday",
+        0
+      ],
+      [
+        "TD Garden",
+        0
+      ],
+      [
+        "TD Garden",
+        2
+      ]
+    ]
+  },
+  {
+    "uid": "8a3d7423-9b02-4f94-9d03-733a244c40a3",
+    "claim": "Kait Parker fills in occasionally for the meteorologist who replaced Ginger Zee.",
+    "label": "SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Kait Parker",
+        0
+      ],
+      [
+        "Kait Parker",
+        1
+      ],
+      [
+        "Rob Marciano",
+        1
+      ]
+    ]
+  },
+  {
+    "uid": "7c55bf49-1230-4df0-aa9e-08e23fb4a892",
+    "claim": "An IndyCar race driver drove a Formula 1 car designed by Peter McCool during the 2007 Formula One season.",
+    "label": "SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Super Aguri SA07",
+        0
+      ],
+      [
+        "Takuma Sato",
+        2
+      ]
+    ]
+  },
+  {
+    "uid": "642ef759-aec2-4cec-97cc-7ecdc104dfca",
+    "claim": "Mark O'Connor is an Amercian bluegrass singer who performed the song Restless with The New Nashville Cats.",
+    "label": "SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Restless (Carl Perkins song)",
+        4
+      ],
+      [
+        "Mark O'Connor",
+        0
+      ]
+    ]
+  },
+  {
+    "uid": "de03ff7c-eedb-49d0-96d7-ae2622174f08",
+    "claim": "The 2011 population of the unitary authority area that includes the village Eastoft was 167,446.",
+    "label": "SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Eastoft",
+        0
+      ],
+      [
+        "North Lincolnshire",
+        1
+      ]
+    ]
+  },
+  {
+    "uid": "25d4468b-735d-4021-9088-321721187dab",
+    "claim": "Love Drunk was the lead single from Boys Like Girls album on which frontman, Martin Johnson co-wrote a song with Taylor Swift.",
+    "label": "SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Love Drunk",
+        3
+      ],
+      [
+        "Two Is Better Than One",
+        1
+      ]
+    ]
+  },
+  {
+    "uid": "ef1b06ba-30a9-455e-a712-9a4840916e75",
+    "claim": "Beatrice Willard served as an economics advisor to President Richard Milhous Nixon, a former Senator from California.",
+    "label": "NOT_SUPPORTED",
+    "num_hops": 2,
+    "supporting_facts": [
+      [
+        "Beatrice Willard",
+        3
+      ],
+      [
+        "Richard Nixon",
+        0
+      ],
+      [
+        "Richard Nixon",
+        1
+      ]
+    ]
+  }
+]

@@ -8,7 +8,8 @@ from src.data.chunker import run_chunking
 from src.data.gold_mapper import run_gold_mapping
 
 from src.retrieval.chroma_builder import upsert_chunks
-from src.retrieval.retriever import batch_retrieve
+from src.retrieval.bm25_engine import BM25Engine
+from src.retrieval.retriever import BM25Retriever
 
 def prepare_dirs(config: Config) -> None:
     ensure_dir(config.raw_dir)
@@ -47,13 +48,16 @@ def main():
 
     print("[5/6] Building gold mappings...")
     enriched_claims = run_gold_mapping(sampled_claims, config)
-
+    
     print("[6/6] Upserting into Chroma...")
     upsert_chunks(chunks, config)
 
-    for top_k in config.top_k_list:
-        retrieval_rows = batch_retrieve(enriched_claims, top_k=top_k, config=config)
-        print(retrieval_rows)
+    print("[Test] BM25 Retrieval...")
+    # ret = BM25Retriever(config, top_k=5)
+    # # chunks 준비 후
+    # # ret.build_from_chunks(chunks)
+    # docs = ret.retrieve_for_claim("example claim")
+
     print("Done.")
 
 
