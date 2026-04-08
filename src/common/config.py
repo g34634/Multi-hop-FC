@@ -77,7 +77,6 @@ class Config:
     bm25_b: float = 0.75
     bm25_threads: int = max(1, (os.cpu_count() or 1) // 2)
 
-
 @dataclass
 class ProgramFCConfig(Config):
     # Planner

@@ -1,7 +1,5 @@
 .env
 .venv
 .data
-pycache/
-*.pyc
-*.pyo
-*.pyd
+**/__pycache__/
+*.py[cod]
