@@ -72,7 +72,10 @@ class Config:
     # Retrieval
     # -------------------------
     top_k_list: list[int] = field(default_factory=lambda: [1, 3, 5, 10])
-
+    bm25_index_path: Path = interim_dir / "bm25_index"
+    bm25_k1: float = 1.5
+    bm25_b: float = 0.75
+    bm25_threads: int = max(1, (os.cpu_count() or 1) // 2)
 
 @dataclass
 class ProgramFCConfig(Config):
