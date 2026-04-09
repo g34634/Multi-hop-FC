@@ -59,9 +59,7 @@
 
 ```bash
 .
-├── chroma_db/          # 벡터 스토어 데이터 저장소 (Chroma)
 ├── data/               # HoVer, FEVEROUS 등 벤치마크 데이터셋
-├── docs/               # 시스템 설계 문서 및 API 명세
 ├── outputs/            # 실험 결과 및 Evaluation 리포트 (CSV, TXT)
 └── src/                # 메인 소스 코드 디렉토리
     ├── retrieval/      # BM25 & ChromaDB 하이브리드 검색 엔진
