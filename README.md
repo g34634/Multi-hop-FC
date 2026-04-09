@@ -1,6 +1,7 @@
 # 🔍 Multi-hop Fact-Checking (RAG-based)
 
-본 프로젝트는 복잡한 주장의 진위 여부를 판단하기 위해 여러 문서에서 근거를 찾아 결합하는 **Multi-hop Retrieval-Augmented Generation (RAG)** 기반의 팩트체킹 시스템입니다. **ChromaDB(Vector)**와 **BM25(Lexical)**를 혼합한 하이브리드 리트리버를 통해 정밀한 근거를 추출하고, 최신 LLM을 활용하여 논리적 추론을 수행합니다.
+본 프로젝트는 복잡한 주장의 진위 여부를 판단하기 위해 여러 문서에서 근거를 찾아 결합하는 **Multi-hop Retrieval-Augmented Generation (RAG)** 기반의 팩트체킹 시스템입니다.
+**ChromaDB(Vector)**와 **BM25(Lexical)**를 혼합한 하이브리드 리트리버를 통해 정밀한 근거를 추출하고, 최신 LLM을 활용하여 논리적 추론을 수행합니다.
 
 ---
 
